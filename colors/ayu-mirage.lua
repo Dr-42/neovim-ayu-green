@@ -1,3 +1,3 @@
 vim.o.background = 'dark'
-require('ayu.config').mirage = true
-require('ayu').colorscheme()
+require('ayu_green.config').mirage = true
+require('ayu_green').colorscheme()

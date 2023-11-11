@@ -1,6 +1,6 @@
-local colors = require('ayu.colors')
-local config = require('ayu.config')
-local ayu = {}
+local colors = require('ayu_green.colors')
+local config = require('ayu_green.config')
+local ayu_green = {}
 
 --- Apply terminal highlighting.
 local function set_terminal_colors()
@@ -278,7 +278,8 @@ local function set_groups()
     VM_Mono = { fg = colors.bg, bg = colors.comment },
   }
 
-  groups = vim.tbl_extend('force', groups, type(config.overrides) == 'function' and config.overrides() or config.overrides)
+  groups = vim.tbl_extend('force', groups,
+    type(config.overrides) == 'function' and config.overrides() or config.overrides)
 
   for group, parameters in pairs(groups) do
     vim.api.nvim_set_hl(0, group, parameters)
@@ -287,12 +288,13 @@ end
 
 --- Apply user settings.
 ---@param values table
-function ayu.setup(values) setmetatable(config, { __index = vim.tbl_extend('force', config.defaults, values) }) end
+function ayu_green.setup(values) setmetatable(config, { __index = vim.tbl_extend('force', config.defaults, values) }) end
 
 --- Set the colorscheme.
-function ayu.colorscheme()
+function ayu_green.colorscheme()
   if vim.version().minor < 8 then
-    vim.notify('Neovim 0.8+ is required for ayu colorscheme', vim.log.levels.ERROR, { title = 'Ayu colorscheme' })
+    vim.notify('Neovim 0.8+ is required for ayu_green colorscheme', vim.log.levels.ERROR,
+      { title = 'ayu_green colorscheme' })
     return
   end
 
@@ -303,11 +305,11 @@ function ayu.colorscheme()
 
   vim.g.VM_theme_set_by_colorscheme = true -- Required for Visual Multi
   vim.o.termguicolors = true
-  vim.g.colors_name = 'ayu'
+  vim.g.colors_name = 'ayu_green'
 
   colors.generate(config.mirage)
   set_terminal_colors()
   set_groups()
 end
 
-return ayu
+return ayu_green
